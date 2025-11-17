@@ -1,3 +1,4 @@
 .env
+src/PyWhatKit*
 test_participants_list.txt
 official_participants_list.txt

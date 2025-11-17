@@ -1,4 +1,5 @@
 import os
+import time
 import random
 import smtplib
 import pywhatkit
@@ -34,7 +35,7 @@ class SecretSantaService:
     @staticmethod
     def send_email_backup(assignments_message: str) -> None:
         load_dotenv("../.env")
-        email_message = 'Subject: {}\n\n{}'.format("[PRUEBA] Secret Santa Results Backup 2025", assignments_message)
+        email_message = 'Subject: {}\n\n{}'.format("[OFICIAL] Secret Santa Results Backup 2025", assignments_message)
         with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
             smtp.ehlo()
             smtp.starttls()
@@ -43,15 +44,18 @@ class SecretSantaService:
 
     @staticmethod
     def send_whatsapp_messages(coordinated_ring) -> None:
+        print("\nMessages delivery order:")
         for node in coordinated_ring:
+            print(node.present_giver.to_string())
             formatted_message = (
-                f"[PRUEBA, NO ES OFICIAL] *[Intercambio de Regalos 2025]* "
+                f"[OFICIAL] *[Intercambio de Regalos 2025]* "
                 f"Hola *{node.present_giver.name}*! "
                 f"La persona a la que le vas a regalar es *{node.present_receiver.name}*. "
                 f"El costo del regalo tiene que ser mínimo de $300. "
                 f"Nadie sabe quien le va a regalar a quien, ni siquiera yo porque este mensaje "
                 f"se encuentra automatizado.")
             pywhatkit.sendwhatmsg_instantly(node.present_giver.phone_number, formatted_message, 8, True)
+            time.sleep(1)
 
     def process_secret_santa_arrangement(self,
         send_backup_email_flag: bool,
