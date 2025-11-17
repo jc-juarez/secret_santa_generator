@@ -1,10 +1,16 @@
 import argparse
 from secret_santa_service import SecretSantaService
 
-# Usage example: python main.py -send_backup_email true -debug_results true -send_whatsapp_messages true
+# Usage example:
+# python3 main.py -participants_file "test_participants_list.txt" -send_backup_email true -debug_results true -send_whatsapp_messages true
 def main():
     # Parse command-line arguments.
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-participants_file",
+        type=str,
+        required=True,
+        help="Name of the participants list file to use.")
     parser.add_argument(
         "-send_backup_email", 
         type=lambda x: x.lower() == 'true',
@@ -21,12 +27,13 @@ def main():
         default=True,
         help="Set this flag to true to send whatsapp messages to present givers.")
     args = parser.parse_args()
+    participants_file = args.participants_file
     send_backup_email = args.send_backup_email
     debug_results = args.debug_results
     send_whatsapp_messages = args.send_whatsapp_messages
 
     # Process secret santa arrangement.
-    secret_santa_service = SecretSantaService(SecretSantaService.PARTICIPANTS_FILE_PATH)
+    secret_santa_service = SecretSantaService(participants_file)
     secret_santa_service.process_secret_santa_arrangement(
         send_backup_email,
         debug_results,

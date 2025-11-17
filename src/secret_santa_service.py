@@ -2,14 +2,11 @@ import os
 import random
 import smtplib
 import pywhatkit
+from dotenv import load_dotenv
 from secret_santa_node import SecretSantaNode
 from secret_santa_person import SecretSantaPerson
 
 class SecretSantaService:
-
-    # Secret santa names list file name.
-    # Defaults to one directory above the secret santa tool source code.
-    PARTICIPANTS_FILE_PATH = '../participants_list.txt'
 
     def __init__(self, participants_file_path: str) -> None:
         people_key_value_pairs = SecretSantaService.read_key_value_pairs(participants_file_path)
@@ -36,7 +33,8 @@ class SecretSantaService:
 
     @staticmethod
     def send_email_backup(assignments_message: str) -> None:
-        email_message = 'Subject: {}\n\n{}'.format("[Test] Secret Santa Results Backup", assignments_message)
+        load_dotenv()
+        email_message = 'Subject: {}\n\n{}'.format("[PRUEBA] Secret Santa Results Backup 2025", assignments_message)
         with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
             smtp.ehlo()
             smtp.starttls()
@@ -46,7 +44,13 @@ class SecretSantaService:
     @staticmethod
     def send_whatsapp_messages(coordinated_ring) -> None:
         for node in coordinated_ring:
-            formatted_message = f'[PRUEBA] *[Intercambio de Regalos 2024]* Hola *{node.present_giver.name}*! La persona a la que le vas a regalar es *{node.present_receiver.name}*. El costo del regalo tiene que ser de $200. Nadie sabe quien le va a regalar a quien, ni siquiera yo porque este mensaje se encuentra automatizado.'
+            formatted_message = (
+                f"[PRUEBA, NO ES OFICIAL] *[Intercambio de Regalos 2025]* "
+                f"Hola *{node.present_giver.name}*! "
+                f"La persona a la que le vas a regalar es *{node.present_receiver.name}*. "
+                f"El costo del regalo tiene que ser mínimo de $300. "
+                f"Nadie sabe quien le va a regalar a quien, ni siquiera yo porque este mensaje "
+                f"se encuentra automatizado.")
             pywhatkit.sendwhatmsg_instantly(node.present_giver.phone_number, formatted_message, 8, True)
 
     def process_secret_santa_arrangement(self,
