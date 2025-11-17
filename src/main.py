@@ -2,7 +2,7 @@ import argparse
 from secret_santa_service import SecretSantaService
 
 # Usage example:
-# python3 main.py -participants_file "test_participants_list.txt" -send_backup_email true -debug_results true -send_whatsapp_messages true
+# python3 main.py -participants_file "../test_participants_list.txt" -send_backup_email true -debug_results true -send_whatsapp_messages true
 def main():
     # Parse command-line arguments.
     parser = argparse.ArgumentParser()

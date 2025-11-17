@@ -33,7 +33,7 @@ class SecretSantaService:
 
     @staticmethod
     def send_email_backup(assignments_message: str) -> None:
-        load_dotenv()
+        load_dotenv("../.env")
         email_message = 'Subject: {}\n\n{}'.format("[PRUEBA] Secret Santa Results Backup 2025", assignments_message)
         with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
             smtp.ehlo()
