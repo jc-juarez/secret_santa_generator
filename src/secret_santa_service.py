@@ -78,4 +78,13 @@ class SecretSantaService:
             SecretSantaService.send_email_backup(assignments_message)
 
         if send_whatsapp_messages_flag:
+            # At this point, the coordinated ring follows a model of
+            # [(PersonA -> PersonB), (PersonB -> PersonC), (PersonC -> PersonD)],
+            # implying that the order of the whatsapp messages sent is the order
+            # on which the gifts are assigned. Given that each individual node already
+            # has all the necessary information for each person, shuffle the coordinated
+            # ring for the whatsapp messages phase one last time before sending the messages.
+            # This ensures that the order on which the messages were sent does not reveal the
+            # order of the gifts to be given by each person.
+            random.shuffle(coordinated_ring)
             SecretSantaService.send_whatsapp_messages(coordinated_ring) 
