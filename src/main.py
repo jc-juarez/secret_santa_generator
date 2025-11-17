@@ -1,3 +1,9 @@
+# *************************************
+# Secret Santa Generator
+# 'main.py'
+# Author: jcjuarez
+# *************************************
+
 import argparse
 from secret_santa_service import SecretSantaService
 

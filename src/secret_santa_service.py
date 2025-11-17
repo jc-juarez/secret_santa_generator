@@ -1,3 +1,9 @@
+# *************************************
+# Secret Santa Generator
+# 'secret_santa_service.py'
+# Author: jcjuarez
+# *************************************
+
 import os
 import time
 import random
